@@ -87,7 +87,13 @@ public class MovieService {
     public List<MovieDTO> getAllMovies(){
         return movieRepository.findAll().stream().map(movieMapper::toDTO).collect(Collectors.toList());
     }
-
+    public int getTotalVotes(){
+        int votes = 0;
+        for(MovieDTO movie : getAllMovies()){
+            votes = votes + movie.getVotes();
+        }
+        return votes;
+    }
 
 
 }

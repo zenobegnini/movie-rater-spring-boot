@@ -23,6 +23,8 @@ public class MovieController {
         model.addAttribute("movie2", randomMovies.getValue1());
         List<MovieDTO> allMovies = movieService.getAllMovies();
         model.addAttribute("allMovies", allMovies);
+        int totalVotes = movieService.getTotalVotes();
+        model.addAttribute("totalVotes", totalVotes);
         return "index";
     }
 
