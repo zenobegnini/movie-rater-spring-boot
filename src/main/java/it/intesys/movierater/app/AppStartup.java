@@ -1,5 +1,6 @@
 package it.intesys.movierater.app;
 
+import it.intesys.movierater.app.service.MovieService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

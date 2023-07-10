@@ -1,8 +1,9 @@
-package it.intesys.movierater.app;
+package it.intesys.movierater.app.domain;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Movie")
 public class Movie {
     @Id
     @Column(name="id")

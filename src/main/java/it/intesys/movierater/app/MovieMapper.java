@@ -1,5 +1,6 @@
 package it.intesys.movierater.app;
 
+import it.intesys.movierater.app.domain.Movie;
 import org.springframework.stereotype.Component;
 
 @Component

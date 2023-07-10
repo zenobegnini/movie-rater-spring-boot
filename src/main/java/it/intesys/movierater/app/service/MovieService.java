@@ -1,5 +1,10 @@
-package it.intesys.movierater.app;
+package it.intesys.movierater.app.service;
 
+import it.intesys.movierater.app.ActorCareer;
+import it.intesys.movierater.app.MovieDTO;
+import it.intesys.movierater.app.MovieMapper;
+import it.intesys.movierater.app.domain.Movie;
+import it.intesys.movierater.app.repository.MovieRepository;
 import org.javatuples.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,6 +98,10 @@ public class MovieService {
             votes = votes + movie.getVotes();
         }
         return votes;
+    }
+
+    public MovieDTO getMovie(Integer id){
+        return movieMapper.toDTO(movieRepository.findById(id).get());
     }
 
 
