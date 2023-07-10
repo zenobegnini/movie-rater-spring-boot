@@ -1,6 +1,6 @@
 package it.intesys.movierater.app;
 
-public class Movie {
+public class MovieDTO {
 
 
     private Long id;
@@ -11,6 +11,12 @@ public class Movie {
     }
 
     public Movie(Long id, String title, String director) {
+    }
+
+    public MovieDTO() {
+    }
+
+    public MovieDTO(Long id, String title, String director) {
         this.id = id;
         this.title = title;
         this.director = director;

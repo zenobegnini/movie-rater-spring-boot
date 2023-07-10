@@ -16,7 +16,7 @@ public class MovieController {
 
     @GetMapping("/")
     public String index(Model model) {
-        Pair<Movie, Movie> randomMovies = movieService.get2RandomMovies();
+        Pair<MovieDTO, MovieDTO> randomMovies = movieService.get2RandomMovies();
         model.addAttribute("movie1", randomMovies.getValue0());
         model.addAttribute("movie2", randomMovies.getValue1());
         return "index";

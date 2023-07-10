@@ -3,7 +3,7 @@ package it.intesys.movierater.app;
 import javax.persistence.*;
 
 @Entity
-public class MovieEntity {
+public class Movie {
     @Id
     @Column(name="id")
     private Integer id;
@@ -20,6 +20,16 @@ public class MovieEntity {
     private String Actors;
     @Column(name = "Country")
     private String Country;
+    @Column(name = "votes")
+    private int votes;
+
+    public int getVotes() {
+        return votes;
+    }
+
+    public void setVotes(int votes) {
+        this.votes = votes;
+    }
 
     public String getTitle() {
         return title;

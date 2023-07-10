@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MovieraterApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(MovieraterApplication.class, args);
 	}
 
