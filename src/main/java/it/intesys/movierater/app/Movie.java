@@ -1,28 +1,25 @@
 package it.intesys.movierater.app;
 
-public class Movie {
+import javax.persistence.*;
 
+@Entity
+public class MovieEntity {
+    @Id
+    @Column(name="id")
+    private Integer id;
 
-    private Long id;
+    @Column(name = "title")
     private String title;
-    private String director;
-
-    public Movie() {
-    }
-
-    public Movie(Long id, String title, String director) {
-        this.id = id;
-        this.title = title;
-        this.director = director;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(name = "Year")
+    private Integer Year;
+    @Column(name = "Genre")
+    private String Genre;
+    @Column(name = "Director")
+    private String Director;
+    @Column(name = "Actors")
+    private String Actors;
+    @Column(name = "Country")
+    private String Country;
 
     public String getTitle() {
         return title;
@@ -32,12 +29,53 @@ public class Movie {
         this.title = title;
     }
 
+    public Integer getYear() {
+        return Year;
+    }
+
+    public void setYear(Integer year) {
+        Year = year;
+    }
+
+    public String getGenre() {
+        return Genre;
+    }
+
+    public void setGenre(String genre) {
+        Genre = genre;
+    }
+
     public String getDirector() {
-        return director;
+        return Director;
     }
 
     public void setDirector(String director) {
-        this.director = director;
+        Director = director;
+    }
+
+    public String getActors() {
+        return Actors;
+    }
+
+    public void setActors(String actors) {
+        Actors = actors;
+    }
+
+    public String getCountry() {
+        return Country;
+    }
+
+    public void setCountry(String country) {
+        Country = country;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
     }
 }
+
 

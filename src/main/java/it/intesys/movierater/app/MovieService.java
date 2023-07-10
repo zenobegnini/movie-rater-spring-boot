@@ -19,7 +19,9 @@ public class MovieService {
     }
 
     public Long getMovieCount() {
-        return 0L;
+
+        return movieRepository.findAll().stream().count();
+
     }
 
     public void vote(Long movieId) {
