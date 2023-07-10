@@ -39,6 +39,10 @@ public class MovieService {
     }
 
     public void vote(Long movieId) {
+        Movie movie = movieRepository.findById(movieId.intValue()).get();
+        movie.setVotes(movie.getVotes() + 1 );
+        movieRepository.save(movie);
         logger.info("Add vote for movie {}", movieId);
+        logger.info("this is the vote of the film: {}", movieRepository.findById(movieId.intValue()).get().getVotes());
     }
 }

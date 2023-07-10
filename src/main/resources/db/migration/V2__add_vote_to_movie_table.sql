@@ -1,0 +1,3 @@
+ALTER TABLE Movie
+    ADD COLUMN Votes INT DEFAULT 0;
+

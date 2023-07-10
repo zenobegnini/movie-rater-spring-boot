@@ -28,7 +28,7 @@ public class MovieController {
     }
 
     @PostMapping("/vote")
-    public String submitVote(@ModelAttribute Movie movie) {
+    public String submitVote(@ModelAttribute MovieDTO movie) {
         movieService.vote(movie.getId());
         return "redirect:/";
     }

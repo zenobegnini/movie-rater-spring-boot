@@ -6,11 +6,14 @@ public class MovieDTO {
     private Long id;
     private String title;
     private String director;
+    private int votes;
 
-    public Movie() {
+    public int getVotes() {
+        return votes;
     }
 
-    public Movie(Long id, String title, String director) {
+    public void setVotes(int votes) {
+        this.votes = votes;
     }
 
     public MovieDTO() {
