@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class MovieController {
 
@@ -19,6 +21,8 @@ public class MovieController {
         Pair<MovieDTO, MovieDTO> randomMovies = movieService.get2RandomMovies();
         model.addAttribute("movie1", randomMovies.getValue0());
         model.addAttribute("movie2", randomMovies.getValue1());
+        List<MovieDTO> allMovies = movieService.getAllMovies();
+        model.addAttribute("allMovies", allMovies);
         return "index";
     }
 

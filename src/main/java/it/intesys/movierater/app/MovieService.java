@@ -84,6 +84,9 @@ public class MovieService {
 
         return topActors;
     }
+    public List<MovieDTO> getAllMovies(){
+        return movieRepository.findAll().stream().map(movieMapper::toDTO).collect(Collectors.toList());
+    }
 
 
 
