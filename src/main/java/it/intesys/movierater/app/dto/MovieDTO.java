@@ -1,4 +1,4 @@
-package it.intesys.movierater.app;
+package it.intesys.movierater.app.dto;
 
 public class MovieDTO {
 

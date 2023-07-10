@@ -1,6 +1,8 @@
 package it.intesys.movierater.app.service;
 
-import it.intesys.movierater.app.MovieMapper;
+import it.intesys.movierater.app.dto.ActorDTO;
+import it.intesys.movierater.app.mapper.ActorMapper;
+import it.intesys.movierater.app.mapper.MovieMapper;
 import it.intesys.movierater.app.domain.Actor;
 import it.intesys.movierater.app.domain.ActorMovie;
 import it.intesys.movierater.app.domain.Movie;
@@ -20,13 +22,15 @@ public class ActorService {
     private final MovieMapper movieMapper;
     private final ActorRepository actorRepository;
     private final ActorMovieRepository actorMovieRepository;
-    public ActorService(MovieService movieService, MovieMapper movieMapper, ActorRepository actorRepository, ActorMovieRepository actorMovieRepository) {
+    private final ActorMapper actorMapper;
+    public ActorService(MovieService movieService, MovieMapper movieMapper, ActorRepository actorRepository, ActorMovieRepository actorMovieRepository, ActorMapper actorMapper) {
         this.movieService = movieService;
         this.movieMapper = movieMapper;
         this.actorRepository = actorRepository;
         this.actorMovieRepository = actorMovieRepository;
+        this.actorMapper = actorMapper;
     }
-    public void Migration(){
+    public void migration(){
         List<Movie> movies = movieService.getAllMovies().stream().map(movieMapper::toEntity).collect(Collectors.toList());
         Map<Integer, List<Integer>> actorsMoviesMap = new HashMap<>();
 
@@ -59,5 +63,13 @@ public class ActorService {
 
         }
 
+    }
+    public List<ActorDTO> getActors(Integer movie_id){
+        List<ActorMovie> actorMovies = actorMovieRepository.findByMovie_Id(movie_id);
+        List<Integer> actorsId = new ArrayList<>();
+        for (ActorMovie actorMovie: actorMovies) {
+            actorsId.add(actorMovie.getActor().getId());
+        }
+        return actorRepository.findActorsByIdIn(actorsId).stream().map(actorMapper::toDTO).collect(Collectors.toList());
     }
 }

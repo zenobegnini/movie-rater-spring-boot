@@ -1,8 +1,8 @@
 package it.intesys.movierater.app.service;
 
 import it.intesys.movierater.app.ActorCareer;
-import it.intesys.movierater.app.MovieDTO;
-import it.intesys.movierater.app.MovieMapper;
+import it.intesys.movierater.app.dto.MovieDTO;
+import it.intesys.movierater.app.mapper.MovieMapper;
 import it.intesys.movierater.app.domain.Movie;
 import it.intesys.movierater.app.repository.MovieRepository;
 import org.javatuples.Pair;
