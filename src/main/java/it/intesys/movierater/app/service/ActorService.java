@@ -59,6 +59,7 @@ public class ActorService {
                 actorMovie.setMovie(movie);
                 actorMovieRepository.save(actorMovie);
             }
+
         }
 
 
@@ -74,6 +75,8 @@ public class ActorService {
 
 
         }
+
+        movieService.deleteActorColumn();
 
     }
     public List<ActorDTO> getActors(Integer movie_id){
