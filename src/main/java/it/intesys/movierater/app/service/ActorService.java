@@ -37,25 +37,31 @@ public class ActorService {
         for (Movie movie : movies) {
             String[] actors = movie.getActors().split(", ");
 
-            // creo Actor
             for (String actor : actors) {
-                Actor newActor = new Actor();
                 String[] nameParts = actor.split(" ", 2);
-                newActor.setName(nameParts[0]);
+                String firstName = nameParts[0];
+                String lastName = nameParts.length > 1 ? nameParts[1] : "";
 
-                if (nameParts.length > 1) {
-                    newActor.setSurname(nameParts[1]);
+                Optional<Actor> existingActor = actorRepository.findByNameAndAndSurname(firstName, lastName);
+
+                Actor currentActor;
+                if (existingActor.isPresent()) {
+                    currentActor = existingActor.get();
                 } else {
-                    newActor.setSurname("");
+                    currentActor = new Actor();
+                    currentActor.setName(firstName);
+                    currentActor.setSurname(lastName);
+                    currentActor = actorRepository.save(currentActor);
                 }
 
-                newActor = actorRepository.save(newActor);
-
-
-                actorsMoviesMap.computeIfAbsent(newActor.getId(), k -> new ArrayList<>()).add(movie.getId());
+                ActorMovie actorMovie = new ActorMovie();
+                actorMovie.setActor(currentActor);
+                actorMovie.setMovie(movie);
+                actorMovieRepository.save(actorMovie);
             }
-
         }
+
+
 
         for (Integer actorWithMovies: actorsMoviesMap.keySet()) {
             ActorMovie actorMovie = new ActorMovie();

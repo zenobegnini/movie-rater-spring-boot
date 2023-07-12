@@ -12,4 +12,5 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
     @Override
     Optional<Actor> findById(Integer id);
     List<Actor> findActorsByIdIn(List<Integer> id);
+    Optional<Actor> findByNameAndAndSurname(String name, String surname);
 }
