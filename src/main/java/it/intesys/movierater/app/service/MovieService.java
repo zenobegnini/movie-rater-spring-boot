@@ -50,45 +50,7 @@ public class MovieService {
         logger.info("this is the vote of the film: {}", movieRepository.findById(movieId.intValue()).get().getVotes());
     }
 
-    public List<String> getActorsWithLongestCareers() {
-        List<Movie> movies = movieRepository.findAll();
 
-        Map<String, List<Movie>> actorsMoviesMap = new HashMap<>();
-
-        // mappa in cui la chiave è il nome dell'attore e il valore è una lista di film in cui l'attore ha recitato
-        for (Movie movie : movies) {
-            String[] actors = movie.getActors().split(", ");
-            for (String actor : actors) {
-                actorsMoviesMap.computeIfAbsent(actor, k -> new ArrayList<>()).add(movie);
-            }
-        }
-
-        List<ActorCareer> actorCareers = new ArrayList<>();
-
-        // Calcola la durata della carriera per ciascun attore
-        for (Map.Entry<String, List<Movie>> entry : actorsMoviesMap.entrySet()) {
-            String actor = entry.getKey();
-            List<Movie> actorMovies = entry.getValue();
-
-            int minYear = actorMovies.stream().mapToInt(Movie::getYear).min().orElse(0);
-            int maxYear = actorMovies.stream().mapToInt(Movie::getYear).max().orElse(0);
-
-            int careerDuration = maxYear - minYear;
-
-            actorCareers.add(new ActorCareer(actor, careerDuration));
-        }
-
-        // Ordina gli attori in base alla durata della carriera in ordine decrescente
-        actorCareers.sort(Comparator.comparingInt(ActorCareer::getCareerDuration).reversed());
-
-        // Seleziona i primi tre attori con la carriera più lunga
-        List<String> topActors = new ArrayList<>();
-        for (int i = 0; i < Math.min(actorCareers.size(), 3); i++) {
-            topActors.add(actorCareers.get(i).getActor());
-        }
-
-        return topActors;
-    }
     public List<MovieDTO> getAllMovies(){
         return movieRepository.findAll().stream().map(movieMapper::toDTO).collect(Collectors.toList());
     }

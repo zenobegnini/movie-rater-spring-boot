@@ -20,6 +20,7 @@ public class ActorController {
         }
         model.addAttribute("actor", actorService.getActor(actorId));
         model.addAttribute("movie", actorService.getMovieByActor(actorId));
+        model.addAttribute("TopActor", actorService.isTopActor(actorId));
         return "actor";
     }
 }

@@ -1,5 +1,6 @@
 package it.intesys.movierater.app;
 
+import it.intesys.movierater.app.service.ActorService;
 import it.intesys.movierater.app.service.MovieService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,15 +14,15 @@ import java.util.List;
 public class AppStartup {
 
     private final Logger log = LoggerFactory.getLogger(AppStartup.class);
-    private final MovieService movieService;
+    private final ActorService actorService;
 
-    public AppStartup(MovieService movieService) {
-        this.movieService = movieService;
+    public AppStartup(ActorService actorService) {
+        this.actorService = actorService;
     }
 
     @EventListener(ApplicationReadyEvent.class)
     public void calculateActorsWithLongestCareer() {
-        List<String> actorsWithLongestCareer = movieService.getActorsWithLongestCareers();
+        List<String> actorsWithLongestCareer = actorService.getActorsWithLongestCareers();
 
         log.info("The top 3 actors for the longest career: \n 1- {} \n 2- {}\n 3- {}",actorsWithLongestCareer.get(0), actorsWithLongestCareer.get(1), actorsWithLongestCareer.get(2) );
     }
