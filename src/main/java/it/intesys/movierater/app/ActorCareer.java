@@ -7,15 +7,15 @@ import org.springframework.stereotype.Service;
 // Classe per memorizzare il nome dell'attore e la durata della carriera
 
 public class ActorCareer {
-    private String actor;
+    private Integer actor;
     private int careerDuration;
 
-    public ActorCareer(String actor, int careerDuration) {
+    public ActorCareer(Integer actor, int careerDuration) {
         this.actor = actor;
         this.careerDuration = careerDuration;
     }
 
-    public String getActor() {
+    public Integer getActor() {
         return actor;
     }
 

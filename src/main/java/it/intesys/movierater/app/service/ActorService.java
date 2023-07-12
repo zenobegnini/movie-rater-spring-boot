@@ -22,6 +22,7 @@ public class ActorService {
     private final ActorRepository actorRepository;
     private final ActorMovieRepository actorMovieRepository;
     private final ActorMapper actorMapper;
+
     public ActorService(MovieService movieService, MovieMapper movieMapper, ActorRepository actorRepository, ActorMovieRepository actorMovieRepository, ActorMapper actorMapper) {
         this.movieService = movieService;
         this.movieMapper = movieMapper;
@@ -105,27 +106,20 @@ public class ActorService {
         return movieService.getMoviesById(moviesId);
     }
     public List<String> getActorsWithLongestCareers() {
-        List<Movie> movies = movieService.getAllMovies().stream().map(movieMapper::toEntity).collect(Collectors.toList());
-
-        Map<String, List<Movie>> actorsMoviesMap = new HashMap<>();
-
-        // mappa in cui la chiave è il nome dell'attore e il valore è una lista di film in cui l'attore ha recitato
-        for (Movie movie : movies) {
-            String[] actors = movie.getActors().split(", ");
-            for (String actor : actors) {
-                actorsMoviesMap.computeIfAbsent(actor, k -> new ArrayList<>()).add(movie);
-            }
+        Map<Integer, List<MovieDTO>> actorMovieList = new HashMap<>();
+        for (ActorDTO actorDTO:getAllActors()) {
+            actorMovieList.put(actorDTO.getId(),getMovieByActor(actorDTO.getId()));
         }
+
 
         List<ActorCareer> actorCareers = new ArrayList<>();
 
-        // Calcola la durata della carriera per ciascun attore
-        for (Map.Entry<String, List<Movie>> entry : actorsMoviesMap.entrySet()) {
-            String actor = entry.getKey();
-            List<Movie> actorMovies = entry.getValue();
+        for (Map.Entry<Integer, List<MovieDTO>> entry : actorMovieList.entrySet()) {
+            Integer actor = entry.getKey();
+            List<MovieDTO> actorMovies = entry.getValue();
 
-            int minYear = actorMovies.stream().mapToInt(Movie::getYear).min().orElse(0);
-            int maxYear = actorMovies.stream().mapToInt(Movie::getYear).max().orElse(0);
+            int minYear = actorMovies.stream().mapToInt(MovieDTO::getYear).min().orElse(0);
+            int maxYear = actorMovies.stream().mapToInt(MovieDTO::getYear).max().orElse(0);
 
             int careerDuration = maxYear - minYear;
 
@@ -138,9 +132,11 @@ public class ActorService {
         // Seleziona i primi tre attori con la carriera più lunga
         List<String> topActors = new ArrayList<>();
         for (int i = 0; i < Math.min(actorCareers.size(), 3); i++) {
-            topActors.add(actorCareers.get(i).getActor());
-        }
 
+            ActorDTO actor = getActor(actorCareers.get(i).getActor());
+
+            topActors.add(actor.getName() + " " + actor.getSurname());
+        }
         return topActors;
     }
     public List<ActorDTO> getAllActors(){
