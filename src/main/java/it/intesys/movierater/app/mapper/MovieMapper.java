@@ -12,6 +12,10 @@ public class MovieMapper {
         movieDTO.setDirector(movie.getDirector());
         movieDTO.setTitle(movie.getTitle());
         movieDTO.setVotes(movie.getVotes());
+        movieDTO.setActors(movie.getActors());
+        movieDTO.setYear(movie.getYear());
+        movieDTO.setGenre(movie.getGenre());
+        movieDTO.setCountry(movie.getCountry());
         return movieDTO;
     }
     public Movie toEntity(MovieDTO movieDTO){
@@ -20,6 +24,10 @@ public class MovieMapper {
         movie.setDirector(movieDTO.getDirector());
         movie.setTitle(movieDTO.getTitle());
         movie.setVotes(movieDTO.getVotes());
+        movie.setActors(movieDTO.getActors());
+        movie.setYear(movieDTO.getYear());
+        movie.setGenre(movieDTO.getGenre());
+        movie.setCountry(movieDTO.getCountry());
         return movie;
     }
 }

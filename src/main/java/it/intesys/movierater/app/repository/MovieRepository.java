@@ -12,5 +12,6 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     List<Movie> findAll();
     @Override
     Optional<Movie> findById(Integer id);
+    List<Movie> findMoviesByIdIn(List<Integer> ids);
 
 }

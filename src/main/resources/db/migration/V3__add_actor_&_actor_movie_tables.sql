@@ -1,11 +1,11 @@
 CREATE TABLE Actor (
-                       ID INTEGER NOT NULL PRIMARY KEY,
+                       ID INTEGER PRIMARY KEY AUTO_INCREMENT,
                        Name VARCHAR(255),
                        surname varchar(255)
 );
 
 CREATE TABLE Actor_movie (
-                       ID INTEGER NOT NULL PRIMARY KEY,
+                       ID INTEGER PRIMARY KEY AUTO_INCREMENT,
                        actor_id INT,
                        movie_id INT,
                        FOREIGN KEY (actor_id) REFERENCES Actor(ID),

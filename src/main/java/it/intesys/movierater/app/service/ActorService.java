@@ -1,6 +1,7 @@
 package it.intesys.movierater.app.service;
 
 import it.intesys.movierater.app.dto.ActorDTO;
+import it.intesys.movierater.app.dto.MovieDTO;
 import it.intesys.movierater.app.mapper.ActorMapper;
 import it.intesys.movierater.app.mapper.MovieMapper;
 import it.intesys.movierater.app.domain.Actor;
@@ -41,8 +42,15 @@ public class ActorService {
             // creo Actor
             for (String actor : actors) {
                 Actor newActor = new Actor();
-                newActor.setName(actor.split(" ")[0]);
-                newActor.setSurname(actor.split(" ")[1]);
+                String[] nameParts = actor.split(" ", 2);
+                newActor.setName(nameParts[0]);
+
+                if (nameParts.length > 1) {
+                    newActor.setSurname(nameParts[1]);
+                } else {
+                    newActor.setSurname("");
+                }
+
                 newActor = actorRepository.save(newActor);
 
 
@@ -71,5 +79,22 @@ public class ActorService {
             actorsId.add(actorMovie.getActor().getId());
         }
         return actorRepository.findActorsByIdIn(actorsId).stream().map(actorMapper::toDTO).collect(Collectors.toList());
+    }
+    public ActorDTO getActor(Integer actorId){
+        ActorDTO actorDTO = new ActorDTO();
+        actorDTO = actorMapper.toDTO(actorRepository.findById(actorId).get());
+        return actorDTO;
+    }
+    public boolean isMigrated(){
+        return !actorRepository.findAll().isEmpty();
+
+    }
+    public List<MovieDTO> getMovieByActor(Integer actorId){
+        List<ActorMovie> actorMovies = actorMovieRepository.findActorMoviesByActor_Id(actorId);
+        List<Integer> moviesId = new ArrayList();
+        for (ActorMovie actorMovie: actorMovies) {
+            moviesId.add(actorMovie.getMovie().getId());
+        }
+        return movieService.getMoviesById(moviesId);
     }
 }

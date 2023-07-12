@@ -46,9 +46,10 @@ public class MovieController {
     @GetMapping("/movie/{movieId}")
     public String getMovieDetails(@PathVariable("movieId") Long movieId, Model model) {
         model.addAttribute("movie", movieService.getMovie(movieId.intValue()));
-        actorService.migration();
+        if(!actorService.isMigrated()){
+            actorService.migration();
+        }
         model.addAttribute("actors", actorService.getActors(movieId.intValue()));
-        model.addAttribute("votes", movieService.getTotalVotes());
         return "movie";
     }
 }

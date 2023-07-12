@@ -103,6 +103,8 @@ public class MovieService {
     public MovieDTO getMovie(Integer id){
         return movieMapper.toDTO(movieRepository.findById(id).get());
     }
-
+public List<MovieDTO> getMoviesById(List<Integer> moviesId){
+        return movieRepository.findMoviesByIdIn(moviesId).stream().map(movieMapper::toDTO).collect(Collectors.toList());
+}
 
 }

@@ -9,11 +9,11 @@
             </div>
             {{#actors}}
                 <div>
-                    <p>{{name}} {{surname}}</p>
+                    <a href="http://localhost:8080/actor/{{id}}"><p>{{name}} {{surname}}</p></a>
                 </div>
             {{/actors}}
             <div>
-                <p>Votes: {{votes}}</p>
+                <p>Votes: {{movie.votes}}</p>
             </div>
 
         </div>
